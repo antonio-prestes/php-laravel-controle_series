@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NovaSerie;
 use App\Http\Requests\SeriesformRequest;
 use App\Models\Serie;
 use App\Services\createSerie;
@@ -40,14 +41,14 @@ class SeriesController extends Controller
         $request->session()
             ->flash('messageSucess', "Série {$serie->nome} id {$serie->id} criada com sucesso!");
 
-        $user = $request->user();
 
-        $email = new NewSerie(
+        $eventNewSerie = new NovaSerie(
             $request->nome,
             $request->qtd_temporadas,
-            $request->qtd_episodios);
+            $request->qtd_episodios,
+            $userId);
 
-        Mail::to($user)->queue($email);
+        event($eventNewSerie);
 
         return redirect()->route('series.index');
     }
