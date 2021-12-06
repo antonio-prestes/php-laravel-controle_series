@@ -34,7 +34,7 @@ class SeriesController extends Controller
         return view('series.create', ['user' => $user]);
     }
 
-    public function store(SeriesformRequest $request, createSerie $createSerie)
+    public function store(SeriesformRequest $request, createSerie $createSerie): \Illuminate\Http\RedirectResponse
     {
         $userId = auth()->id();
         $serie = $createSerie->criarSerie($request->nome, $request->qtd_temporadas, $request->qtd_episodios, $userId);

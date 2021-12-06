@@ -41,7 +41,8 @@ class SendEmailNewSerie
             $qtdTemporadas,
             $qtdEpisodios
         );
+        $email->subject = 'Nova Série Adicionada';
 
-        Mail::to($user)->queue($email);
+        Mail::to($user)->later(1,$email);
     }
 }
