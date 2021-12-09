@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Events\DeletedSerie;
 use App\Models\Serie;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class deleteSerie
 {
@@ -15,6 +18,9 @@ class deleteSerie
             $nomeSerie = $serie->nome;
             $this->DeletarTemporada($serie);
             $serie->delete();
+
+            $eventDeletedSerie = new DeletedSerie($serie);
+            event($eventDeletedSerie);
         });
 
         return $nomeSerie;

@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\NewSerie;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Console\Input\Input;
+
 
 
 class SeriesController extends Controller
@@ -37,10 +40,25 @@ class SeriesController extends Controller
     public function store(SeriesformRequest $request, createSerie $createSerie): \Illuminate\Http\RedirectResponse
     {
         $userId = auth()->id();
-        $serie = $createSerie->criarSerie($request->nome, $request->qtd_temporadas, $request->qtd_episodios, $userId);
+
+        $imgName = null;
+
+        if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+
+            $request->file('cover')->store('serie');
+
+            $imgName = $request->cover->hashName();
+        }
+
+        $serie = $createSerie->criarSerie(
+            $request->nome,
+            $request->qtd_temporadas,
+            $request->qtd_episodios,
+            $userId,
+            $imgName);
+
         $request->session()
             ->flash('messageSucess', "Série {$serie->nome} id {$serie->id} criada com sucesso!");
-
 
         $eventNewSerie = new NovaSerie(
             $request->nome,

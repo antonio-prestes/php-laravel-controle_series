@@ -11,8 +11,16 @@
     <ul @class('list-group')>
         @foreach($series as $serie)
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span id="nome-serie-{{$serie->id}}">{{$serie->nome}}</span>
-
+                <div>
+                    @if($serie->cover_img)
+                        <img src="{{Storage::url($serie->cover_img)}}" alt="cover"
+                             class="img-thumbnail" height="100px" width="60px">
+                    @else
+                        <img src="{{Storage::url('not-found.png')}}" alt="cover" class="img-thumbnail"
+                             height="100px" width="60px">
+                    @endif
+                    <span id="nome-serie-{{$serie->id}}">{{$serie->nome}}</span>
+                </div>
                 <div class="input-group w-50" hidden id="input-nome-serie-{{$serie->id}}">
                     <input type="text" class="form-control" value="{{$serie->nome}}">
                     <div class="input-group-append">

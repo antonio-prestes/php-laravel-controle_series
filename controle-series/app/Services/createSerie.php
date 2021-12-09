@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class createSerie
 {
-    public function CriarSerie(string $nomeSerie, int $qdTemporadas, int $epPorTemporada, int $userId): Serie
+    public function CriarSerie(string $nomeSerie, int $qdTemporadas, int $epPorTemporada, int $userId, ?string $imgName): Serie
     {
         DB::beginTransaction();
-        $serie = Serie::create(['nome' => $nomeSerie, 'user_id'=>$userId]);
+        $serie = Serie::create([
+            'nome' => $nomeSerie,
+            'user_id' => $userId,
+            'cover_img' => $imgName
+        ]);
 
         $this->CriarTemporada($qdTemporadas, $serie, $epPorTemporada);
         DB::commit();
