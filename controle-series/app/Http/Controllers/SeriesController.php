@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Input\Input;
 
 
-
 class SeriesController extends Controller
 {
     public function index(Request $request)

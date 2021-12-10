@@ -20,7 +20,7 @@
                 Series
             </a>
             <ul class="nav justify-content-end">
-                <a class="nav-link disabled">Usuário: {{$user->name}} </a>
+                Usuário: {{$user->name}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="btn btn-link">Logout</button>
@@ -32,5 +32,13 @@
     <h3>@yield('title')</h3>
     @yield('content')
 </div>
+<footer class="container bg-light text-center text-lg-start fixed-bottom">
+    <!-- Copyright -->
+    <div class="text-center p-2">
+        © 2020 Copyright:
+        <a class="text-dark" href="https://github.com/antonio-prestes">Diego Prestes</a>
+    </div>
+    <!-- Copyright -->
+</footer>
 </body>
 </html>

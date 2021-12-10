@@ -23,7 +23,7 @@ class DeletedSerie
 
     public $serie;
 
-    public function __construct(Serie $serie)
+    public function __construct(object $serie)
     {
         $this->serie = $serie;
     }

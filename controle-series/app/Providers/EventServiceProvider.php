@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Events\DeletedSerie;
 use App\Events\NovaSerie;
-use App\Listeners\DeleteSerieCover;
 use App\Listeners\LogEmailNewSerie;
 use App\Listeners\SendEmailNewSerie;
 use Illuminate\Auth\Events\Registered;
@@ -26,9 +25,7 @@ class EventServiceProvider extends ServiceProvider
         NovaSerie::class => [
             SendEmailNewSerie::class,
             LogEmailNewSerie::class
-        ],
-        DeletedSerie::class => [
-            DeleteSerieCover::class
+
         ]
     ];
 

@@ -4,9 +4,6 @@ namespace App\Listeners;
 
 use App\Events\NovaSerie;
 use App\Mail\NewSerie;
-use http\Env\Request;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -25,7 +22,7 @@ class SendEmailNewSerie
     /**
      * Handle the event.
      *
-     * @param \App\Events\NovaSerie $event
+     * @param NovaSerie $event
      * @return void
      */
     public function handle(NovaSerie $event)
@@ -42,7 +39,7 @@ class SendEmailNewSerie
             $qtdEpisodios
         );
 
-        $email->subject = 'Nova Série Adicionada';
+        $email->subject = 'Nova série sdicionada';
 
         Mail::to($user)->send($email);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Events\DeletedSerie;
+use App\Jobs\DeleteSerieCover;
 use App\Models\Serie;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +15,15 @@ class deleteSerie
         $nomeSerie = '';
         DB::transaction(function () use ($serieId, &$nomeSerie) {
             $serie = Serie::find($serieId);
+            $serieObj = (object) $serie->toArray();
             $nomeSerie = $serie->nome;
             $this->DeletarTemporada($serie);
             $serie->delete();
 
-            $eventDeletedSerie = new DeletedSerie($serie);
-            event($eventDeletedSerie);
+           /* $eventDeletedSerie = new DeletedSerie($serieObj);
+            event($eventDeletedSerie);*/
+
+            DeleteSerieCover::dispatch($serieObj);
         });
 
         return $nomeSerie;
